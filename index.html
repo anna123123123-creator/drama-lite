@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>短剧精选（精简开源版）</title>
+<meta name="description" content="免费开源的短剧平台系统精简版：剧集目录浏览、首集免费试看、整季付费解锁、模拟视频播放器，后台剧集与分集管理、真实收入统计，纯前端+localStorage实现，可作为学习或二次开发起点。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">短剧<span class="accent">精选</span></div>
+    <div class="topbar-right">
+      <div class="balance-badge" id="balanceBadge">余额 ¥0</div>
+      <a href="admin.html" class="nav-link">进入制作方后台 →</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 目录页 -->
+    <section id="view-catalog">
+      <div class="page-head">
+        <h1>发现好看的短剧</h1>
+        <p>第 1 集永久免费试看，喜欢就整季解锁，一次付费看全集。这是一个真实可用的精简开源系统，数据保存在你浏览器本地。</p>
+      </div>
+      <div id="seriesGrid" class="series-grid"></div>
+    </section>
+
+    <!-- 剧集详情页 -->
+    <section id="view-series" style="display:none">
+      <button class="btn btn-sm" id="btnBackToCatalog">← 返回目录</button>
+      <div class="series-head" id="seriesHead"></div>
+      <div id="seriesMsg"></div>
+      <div id="episodeList" class="episode-list"></div>
+    </section>
+  </main>
+
+  <!-- 模拟视频播放器弹层 -->
+  <div class="modal-backdrop" id="playerBackdrop">
+    <div class="modal player-modal">
+      <button class="modal-close" id="btnClosePlayer">&times;</button>
+      <h2 id="playerTitle"></h2>
+      <p class="sub" id="playerSub"></p>
+      <div class="video-player">
+        <div class="player-stage" id="playerStage">
+          <span id="playerStageEmoji">🎬</span>
+          <div class="player-finished-overlay" id="playerFinishedOverlay">本集播放完毕</div>
+        </div>
+        <div class="player-controls">
+          <button class="play-btn" id="btnPlayPause">▶</button>
+          <div class="player-progress" id="playerProgressTrack">
+            <div class="player-progress-bar" id="playerProgressBar"></div>
+          </div>
+          <div class="player-time" id="playerTime">00:00 / 00:00</div>
+        </div>
+        <div class="player-footer">
+          <span class="preview-tag" id="playerPreviewTag"></span>
+          <button class="btn btn-primary btn-sm" id="btnNextEpisode">下一集 →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+
+<footer style="margin:40px auto 16px;max-width:1100px;padding:16px 20px 0;border-top:1px solid var(--line,rgba(147,160,184,.18));text-align:center;color:var(--muted,#93A0B8);font-size:13px">精简开源演示 &middot; 完整版：<a href="https://inzyxuashop.com/duanju-yuanma.html" target="_blank" rel="noopener" style="color:var(--cyan,#19B8D4);text-decoration:none">短剧平台源码</a></footer>
+</body>
+</html>

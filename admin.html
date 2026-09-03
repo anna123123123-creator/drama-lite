@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>制作方后台 · 短剧精选（精简开源版）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand">短剧<span class="accent">精选</span> 后台</div>
+      <div class="side-link active" data-view="dashboard">仪表盘</div>
+      <div class="side-link" data-view="series">剧集管理</div>
+      <div class="side-link" data-view="episodes">分集管理</div>
+      <div class="side-link" id="btnResetData" style="margin-top:20px;color:var(--red)">重置示例数据</div>
+      <a href="index.html" class="side-link">← 返回前台</a>
+    </aside>
+
+    <main class="admin-main">
+      <section id="view-dashboard" class="admin-view active">
+        <div class="page-head"><h1>仪表盘</h1><p>剧集与购买数据总览。</p></div>
+        <div class="stat-grid" id="statGrid"></div>
+        <div class="page-head" style="margin-top:8px"><h2 style="font-size:16px;margin:0 0 12px">热销剧集排行</h2></div>
+        <table>
+          <thead><tr><th>排名</th><th>剧集</th><th>购买次数</th><th>收入</th></tr></thead>
+          <tbody id="bestSellingBody"></tbody>
+        </table>
+      </section>
+
+      <section id="view-series" class="admin-view">
+        <div class="page-head"><h1>剧集管理</h1><p>添加、编辑或删除剧集。删除会级联清除该剧集下的所有分集和购买记录。</p></div>
+        <div class="table-toolbar">
+          <span></span>
+          <button class="btn btn-primary btn-sm" id="btnAddSeries">+ 新增剧集</button>
+        </div>
+        <table>
+          <thead><tr><th>剧集名称</th><th>分类</th><th>整季价格</th><th>集数</th><th>购买数</th><th>操作</th></tr></thead>
+          <tbody id="seriesBody"></tbody>
+        </table>
+      </section>
+
+      <section id="view-episodes" class="admin-view">
+        <div class="page-head"><h1>分集管理</h1><p>选择一部剧集，管理它的分集列表。</p></div>
+        <div class="table-toolbar">
+          <select id="episodeSeriesSelect" class="series-select"></select>
+          <button class="btn btn-primary btn-sm" id="btnAddEpisode">+ 新增分集</button>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>标题</th><th>时长</th><th>试看</th><th>操作</th></tr></thead>
+          <tbody id="episodesBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="seriesModalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="btnCloseSeriesModal">&times;</button>
+      <h2 id="seriesModalTitle">新增剧集</h2>
+      <div id="seriesModalMsg"></div>
+      <form id="seriesForm" novalidate>
+        <input type="hidden" id="seriesIdInput">
+        <div class="field"><label>剧集名称</label><input id="seriesTitleInput" type="text" required></div>
+        <div class="field-row">
+          <div class="field"><label>分类</label><input id="seriesCategoryInput" type="text" required placeholder="甜宠 / 悬疑 / 复仇 / 古装 …"></div>
+          <div class="field"><label>整季解锁价格（元）</label><input id="seriesPriceInput" type="number" min="0" step="1" required></div>
+        </div>
+        <div class="field"><label>封面表情符号</label><input id="seriesEmojiInput" type="text" maxlength="4" placeholder="例如 💘"></div>
+        <div class="field"><label>简介</label><textarea id="seriesSynopsisInput" rows="3"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block">保存</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="episodeModalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="btnCloseEpisodeModal">&times;</button>
+      <h2 id="episodeModalTitle">新增分集</h2>
+      <div id="episodeModalMsg"></div>
+      <form id="episodeForm" novalidate>
+        <input type="hidden" id="episodeIdInput">
+        <div class="field"><label>分集标题</label><input id="episodeTitleInput" type="text" required></div>
+        <div class="field"><label>时长（秒）</label><input id="episodeDurationInput" type="number" min="1" required></div>
+        <div class="field field-checkbox">
+          <label><input id="episodePreviewInput" type="checkbox"> 设为免费试看集</label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">保存</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+
+<footer style="margin:40px auto 16px;max-width:1100px;padding:16px 20px 0;border-top:1px solid var(--line,rgba(147,160,184,.18));text-align:center;color:var(--muted,#93A0B8);font-size:13px">精简开源演示 &middot; 完整版：<a href="https://inzyxuashop.com/duanju-yuanma.html" target="_blank" rel="noopener" style="color:var(--cyan,#19B8D4);text-decoration:none">短剧平台源码</a></footer>
+</body>
+</html>
